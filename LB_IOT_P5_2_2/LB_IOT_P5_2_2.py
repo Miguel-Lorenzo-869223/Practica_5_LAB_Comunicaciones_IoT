@@ -10,15 +10,17 @@
 import serial
 import time
 
-PORT = "COM7"        # Cambia esto al puerto de tu Arduino
-BAUD = 115200        # Debe coincidir con Serial.begin()
+PORT = "COM5"        # Arduino serial port
+BAUD = 115200        # Must match Serial.begin() in Arduino
 
 def open_serial():
+    """Attempts to establish a serial connection continuously until successful."""
     while True:
         try:
+            # Check if there is data available in the incoming buffer
             print(f"Connecting to {PORT}...")
             ser = serial.Serial(PORT, BAUD, timeout=1)
-            print("✔ Serial port connected\n")
+            print("Serial port connected...\n")
             return ser
         except serial.SerialException:
             print("Failed to open port. Retrying...")
