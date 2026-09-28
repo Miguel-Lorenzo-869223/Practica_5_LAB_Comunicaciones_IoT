@@ -7,12 +7,12 @@ BAUD = 115200        # Debe coincidir con Serial.begin()
 def open_serial():
     while True:
         try:
-            print(f"Conectando a {PORT}...")
+            print(f"Connecting to {PORT}...")
             ser = serial.Serial(PORT, BAUD, timeout=1)
-            print("✔ Puerto serie conectado\n")
+            print("✔ Serial port connected\n")
             return ser
         except serial.SerialException:
-            print("❌ No se pudo abrir el puerto. Reintentando...")
+            print("Failed to open port. Retrying...")
             time.sleep(1)
 
 def main():
@@ -24,10 +24,10 @@ def main():
                 line = ser.readline().decode('utf-8', errors='ignore').strip()
                 print(line)
         except serial.SerialException:
-            print("⚠ Conexión perdida. Reconectando...")
+            print("Connection lost...")
             ser = open_serial()
         except KeyboardInterrupt:
-            print("\nPrograma terminado por el usuario.")
+            print("\nClosing Serial...")
             ser.close()
             break
 
